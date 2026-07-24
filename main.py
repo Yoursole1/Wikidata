@@ -28,9 +28,12 @@ def filter_wiki_links_r(wiki: str) -> list[str]:
 
     return result
 
+def strip_links(links: list[str]):
+    return [l.strip("[]") for l in links]
+
 def main() -> None:
     with open('graph.txt', 'a') as graph_file:
-        root = ET.parse('enwiki-2026-07-01-p10p1400054.xml').getroot()
+        root = ET.parse('small.xml').getroot()
         print("parsed")
         i = 0
         for child in root:
@@ -42,7 +45,7 @@ def main() -> None:
 
             i += 1
             if i % 1000 == 0:
-                print(article_title)
+                print(f"Parsed {i} articles")
 
             for a in child:
                 if a.tag == '{http://www.mediawiki.org/xml/export-0.11/}revision':
@@ -51,6 +54,8 @@ def main() -> None:
                             article_text = b.text
 
             links = filter_wiki_links_r(article_text)
+            links = strip_links(links)
+
             graph_file.write(f"{article_title}:{links}\n")
 
 
