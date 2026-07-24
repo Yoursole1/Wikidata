@@ -1,5 +1,6 @@
 import mwparserfromhell
 import xml.etree.ElementTree as ET
+import glob
 
 
 
@@ -32,31 +33,34 @@ def strip_links(links: list[str]):
     return [l.strip("[]") for l in links]
 
 def main() -> None:
+    i = 0
+    xml_files = glob.glob("*.xml")
     with open('graph.txt', 'a') as graph_file:
-        root = ET.parse('small.xml').getroot()
-        print("parsed")
-        i = 0
-        for child in root:
-            article_title = child[0].text
-            article_text = ""
+        for xml in xml_files:
+            root = ET.parse(xml).getroot()
+            print("Initial Parse Done: " + xml)
+            for child in root:
+                article_title = child[0].text
+                article_text = ""
 
-            if ":" in article_title: # not a regular article, either a user: or a talk:
-                continue
+                if ":" in article_title: # not a regular article, either a user: or a talk:
+                    continue
 
-            i += 1
-            if i % 1000 == 0:
-                print(f"Parsed {i} articles")
+                i += 1
+                if i % 1000 == 0:
+                    print(f"Parsed {i} articles")
 
-            for a in child:
-                if a.tag == '{http://www.mediawiki.org/xml/export-0.11/}revision':
-                    for b in a:
-                        if b.tag == '{http://www.mediawiki.org/xml/export-0.11/}text':
-                            article_text = b.text
+                for a in child:
+                    if a.tag == '{http://www.mediawiki.org/xml/export-0.11/}revision':
+                        for b in a:
+                            if b.tag == '{http://www.mediawiki.org/xml/export-0.11/}text':
+                                article_text = b.text
 
-            links = filter_wiki_links_r(article_text)
-            links = strip_links(links)
+                links = filter_wiki_links_r(article_text)
+                links = strip_links(links)
+                links = list(set(links)) # remove duplicates
 
-            graph_file.write(f"{article_title}:{links}\n")
+                graph_file.write(f"{article_title}:{links}\n")
 
 
 
