@@ -25,7 +25,7 @@ def filter_wiki_links_r(wiki: str) -> list[str]:
         s = f"[[{s}]]"
 
         if ":" not in s:
-            result.append(s)
+            result.append(s) # todo look into improving this
 
     return result
 
@@ -43,18 +43,28 @@ def main() -> None:
                 article_title = child[0].text
                 article_text = ""
 
-                if ":" in article_title: # not a regular article, either a user: or a talk:
-                    continue
-
                 i += 1
                 if i % 1000 == 0:
                     print(f"Parsed {i} articles")
+
+                skip = False
 
                 for a in child:
                     if a.tag == '{http://www.mediawiki.org/xml/export-0.11/}revision':
                         for b in a:
                             if b.tag == '{http://www.mediawiki.org/xml/export-0.11/}text':
                                 article_text = b.text
+                    elif a.tag == '{http://www.mediawiki.org/xml/export-0.11/}ns' and a.text != '0':
+                        skip = True
+
+                    elif a.tag == '{http://www.mediawiki.org/xml/export-0.11/}redirect':
+                        skip = True
+
+
+                if skip:
+                    continue
+
+                print(article_title)
 
                 links = filter_wiki_links_r(article_text)
                 links = strip_links(links)
