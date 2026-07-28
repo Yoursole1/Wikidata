@@ -64,7 +64,6 @@ def main() -> None:
                 if skip:
                     continue
 
-                print(article_title)
 
                 links = filter_wiki_links_r(article_text)
                 links = strip_links(links)
