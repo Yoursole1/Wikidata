@@ -6,6 +6,9 @@ def average_shortest_path():
 
     with open("graph.txt") as txt:
         G = nx.DiGraph()
+        print(G.successors("mathematics"))
+        print(G.successors("arabic"))
+
         i = 0
         for line in txt.readlines():
             i += 1
