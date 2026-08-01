@@ -5,7 +5,7 @@ import json
 def average_shortest_path():
 
     with open("graph.txt") as txt:
-        G = nx.Graph()
+        G = nx.DiGraph()
         i = 0
         for line in txt.readlines():
             i += 1
