@@ -22,7 +22,7 @@ def average_shortest_path():
                 G.add_edge(article, a)
 
         path = nx.shortest_path(G, source="Mathematics", target="Spanish language")
-
+        print(path)
 
 
 
