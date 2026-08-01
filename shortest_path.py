@@ -6,8 +6,12 @@ def average_shortest_path():
 
     with open("graph.txt") as txt:
         G = nx.Graph()
-
+        i = 0
         for line in txt.readlines():
+            i += 1
+            if i % 10000 == 0:
+                print(i)
+
             # I did this because some article titles have a colon in them
             # Cast to tuple for unpacking
             article, edges = tuple(re.split(r":(?=\[)", line, maxsplit=1))
