@@ -15,6 +15,7 @@ def average_shortest_path():
             # I did this because some article titles have a colon in them
             # Cast to tuple for unpacking
             article, edges = tuple(re.split(r":(?=\[)", line, maxsplit=1))
+            article = article.lower()
 
             # turns string version of list to actual list, is more robust to edge cases than what I might come up with
             edges = edges.strip()
@@ -23,9 +24,9 @@ def average_shortest_path():
             articles = [a.strip()[1:-1] for a in articles]
 
             for a in articles:
-                G.add_edge(article, a)
+                G.add_edge(article, a.lower())
 
-        path = nx.shortest_path(G, source="Mathematics", target="Spanish language")
+        path = nx.shortest_path(G, source="mathematics", target="spanish language")
         print(path)
 
 
