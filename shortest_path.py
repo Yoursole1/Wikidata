@@ -28,9 +28,7 @@ def average_shortest_path():
             for a in articles:
                 G.add_edge(article, a.lower())
 
-        print(list(G.successors("mathematics")))
-        print(list(G.successors("arabic")))
-        path = nx.shortest_path(G, source="mathematics", target="spanish language")
+        path = nx.shortest_path(G, source="projective geometry", target="spanish language")
         print(path)
 
 
