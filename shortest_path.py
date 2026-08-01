@@ -6,8 +6,7 @@ def average_shortest_path():
 
     with open("graph.txt") as txt:
         G = nx.DiGraph()
-        print(G.successors("mathematics"))
-        print(G.successors("arabic"))
+
 
         i = 0
         for line in txt.readlines():
@@ -29,6 +28,8 @@ def average_shortest_path():
             for a in articles:
                 G.add_edge(article, a.lower())
 
+        print(G.successors("mathematics"))
+        print(G.successors("arabic"))
         path = nx.shortest_path(G, source="mathematics", target="spanish language")
         print(path)
 
