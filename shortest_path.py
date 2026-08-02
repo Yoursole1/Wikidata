@@ -1,12 +1,24 @@
+"""
+Joshua Beard
+CSE 163 AA
+Shortest path test to verify data
+"""
+
 import networkx as nx
 import re
-import json
+
 
 def average_shortest_path():
-
+    '''
+    Will find the average shortest
+    path between nodes in the graph
+    specified in graph.txt.  As is,
+    it finds the shortest path between
+    two specific nodes, but this is
+    only being used for testing.
+    '''
     with open("graph.txt") as txt:
         G = nx.DiGraph()
-
 
         i = 0
         for line in txt.readlines():
@@ -19,7 +31,6 @@ def average_shortest_path():
             article, edges = tuple(re.split(r":(?=\[)", line, maxsplit=1))
             article = article.lower()
 
-            # turns string version of list to actual list, is more robust to edge cases than what I might come up with
             edges = edges.strip()
             edges = edges[1:-1]
             articles = edges.split(",")
@@ -29,16 +40,10 @@ def average_shortest_path():
                 G.add_edge(article, a.lower())
 
         print(len(G.nodes))
-        path = nx.shortest_path(G, source="projective geometry", target="spanish language")
+        path = nx.shortest_path(G,
+                                source="projective geometry",
+                                target="spanish language")
         print(path)
-
-
-
-
-
-
-
-
 
 
 if __name__ == "__main__":
