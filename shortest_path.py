@@ -28,6 +28,7 @@ def average_shortest_path():
             for a in articles:
                 G.add_edge(article, a.lower())
 
+        print(len(G.nodes))
         path = nx.shortest_path(G, source="projective geometry", target="spanish language")
         print(path)
 
