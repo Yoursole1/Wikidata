@@ -3,6 +3,7 @@ Joshua Beard
 CSE 163 AA
 Shortest path test to verify data
 """
+import random
 
 import networkx as nx
 import re
@@ -39,11 +40,24 @@ def average_shortest_path():
             for a in articles:
                 G.add_edge(article, a.lower())
 
-        print(len(G.nodes))
-        path = nx.shortest_path(G,
-                                source="projective geometry",
-                                target="spanish language")
-        print(path)
+        total_distance = 0
+        num_valid_paths = 0
+
+        while True:
+            node1, node2 = random.sample(list(G.nodes), 2)
+
+            try:
+                distance = nx.shortest_path_length(G, node1, node2)
+
+                total_distance += distance
+                num_valid_paths += 1
+
+                average_distance = total_distance / num_valid_paths
+
+                print(f"Average shortest path: {average_distance:.4f}")
+
+            except nx.NetworkXNoPath:
+                continue
 
 
 if __name__ == "__main__":
