@@ -43,6 +43,8 @@ def average_shortest_path():
         total_distance = 0
         num_valid_paths = 0
 
+        distance_dist = {9999:0}
+
         while True:
             node1, node2 = random.sample(list(G.nodes), 2)
 
@@ -54,7 +56,13 @@ def average_shortest_path():
 
                 average_distance = total_distance / num_valid_paths
 
+                if distance not in distance_dist.keys():
+                    distance_dist[distance] = 1
+                else:
+                    distance_dist[distance] += 1
+
                 print(f"Average shortest path: {average_distance:.4f}")
+                print(distance_dist)
 
             except nx.NetworkXNoPath:
                 continue
