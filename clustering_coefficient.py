@@ -40,8 +40,7 @@ def average_shortest_path():
             for a in articles:
                 G.add_edge(article, a.lower())
 
-        print("Nodes:", G.number_of_nodes())
-        print("Edges:", G.number_of_edges())
+        print("Global Clustering Coeff: "+ str(nx.transitivity(G)))
 
 
 if __name__ == "__main__":
