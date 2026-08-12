@@ -36,6 +36,7 @@ def average_shortest_path():
                 G.add_edge(article, a.lower())
 
         A = nx.to_scipy_sparse_array(G, format="csr", dtype=float)
+        del G
 
         row_sums = np.asarray(A.sum(axis=1)).ravel()
         no_outgoing = (row_sums == 0)
