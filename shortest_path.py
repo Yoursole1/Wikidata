@@ -40,6 +40,7 @@ def average_shortest_path():
             for a in articles:
                 G.add_edge(article, a.lower())
 
+        print(nx.shortest_path_length(G, "association football", "moth"))
         total_distance = 0
         num_valid_paths = 0
 
