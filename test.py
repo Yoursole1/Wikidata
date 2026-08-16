@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 
 # Change this to the node/article you want to visualize.
-TARGET_NODE = "Joshua Beard"
+TARGET_NODE = "moth"
 
 
 def build_graph():
